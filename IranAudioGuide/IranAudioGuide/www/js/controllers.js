@@ -1,7 +1,7 @@
 angular.module('app.controllers', [])
 
 .controller('homeCtrl', function ($scope, SlideShows, Places) {
-    $scope.PageTitle = '<img style="height: 100%;" src="../img/iranatg_logo.png" />'
+    $scope.PageTitle = '<img style="height: 100%;" src="img/iranatg_logo.png" />'
     $scope.SlideShows = SlideShows.all();
     $scope.Places = Places.all();
 })

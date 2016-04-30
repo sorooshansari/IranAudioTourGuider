@@ -4,11 +4,11 @@ angular.module('app.services', [])
     var SlideShow = [
         {
             id: 0,
-            URL: '../img/2.jpg'
+            URL: 'img/2.jpg'
         },
     {
         id: 1,
-        URL: '../img/3.jpg'
+        URL: 'img/3.jpg'
     }];
 
     return {
