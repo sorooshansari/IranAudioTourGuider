@@ -9,9 +9,20 @@
                 The Tomb of Hafez and its associated memorial hall, the Hafezieh, are two memorial structures erected in the northern edge of Shiraz, Iran, in memory of the celebrated Persian poet Hafez. 
             </div>
         </div>
+        <ion-list>
+            <ion-item class="item-icon-left" 
+                      ng-repeat="audio in playList" 
+                      type="item-text-wrap"
+                      ng-click="playPause(audio.id)">
+                <i id="i-{{audio.id}}" class="icon ion-play"></i>
+                {{audio.title}}
+            </ion-item>
+        </ion-list>
 
-        <div class="list">
-            <a href="#" class="item item-icon-left">
+
+        <!--<div class="list">
+
+            <a href="#" class="item item-icon-left" ng-click="playPause()">
                 <i class="icon ion-play"></i>
                 Enter home address
             </a>
@@ -30,7 +41,7 @@
                 <i class="icon ion-play"></i>
                 Enter card information
             </a>
-        </div>
+        </div>-->
         <div class="margin"></div>
     </ion-content>
 </ion-view>

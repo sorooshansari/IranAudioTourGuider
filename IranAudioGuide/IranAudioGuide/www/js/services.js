@@ -85,8 +85,32 @@ angular.module('app.services', [])
         }
     };
 })
-.factory('BlankFactory', [function () {
+.factory('PlayList', [function () {
+    var Audios = [
+        {
+            id: 0,
+            URL: 'audio/1.mp3',
+            title: "Sogand The Loom"
+        },
+    {
+        id: 1,
+        URL: 'audio/2.mp3',
+        title: "Sogand Bilite Yektarafe"
+    }];
 
+    return {
+        all: function () {
+            return Audios;
+        },
+        get: function (Audio_ID) {
+            for (var i = 0; i < Audios.length; i++) {
+                if (Audios[i].id === parseInt(Audio_ID)) {
+                    return Audios[i];
+                }
+            }
+            return null;
+        }
+    };
 }])
 
 .service('BlankService', [function () {
