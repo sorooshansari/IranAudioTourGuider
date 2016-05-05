@@ -12,6 +12,6 @@ angular.module('app', ['ionic', 'ionic.service.core', 'app.controllers', 'app.ro
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
-    }
+    } 
   });
 })
