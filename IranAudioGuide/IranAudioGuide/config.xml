@@ -74,5 +74,7 @@
   <plugin name="ionic-plugin-keyboard" version="2.0.1" />
   <plugin name="cordova-plugin-compat" version="1.0.0" />
   <plugin name="cordova-plugin-file" version="4.2.0" />
-  <plugin name="cordova-plugin-media" version="2.1.0" src="https://git-wip-us.apache.org/repos/asf/cordova-plugin-media.git" />
+  <!--<plugin name="cordova-plugin-file" spec="3.0.0" source="pgb" />-->
+  <!--<plugin name="cordova-plugin-media" version="2.1.0" src="https://git-wip-us.apache.org/repos/asf/cordova-plugin-media.git" />-->
+  <plugin name="cordova-plugin-media" spec="1.0.1" source="pgb" />
 </widget>
