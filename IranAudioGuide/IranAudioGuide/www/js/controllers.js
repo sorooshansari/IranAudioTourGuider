@@ -17,7 +17,7 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('palaceCtrl', function ($scope, PlayList, $rootScope, $ionicLoading) {
+.controller('palaceCtrl', function ($scope, PlayList, $rootScope, $ionicLoading, $cordovaMedia) {
     $scope.PageTitle = "Tomb of Hafez"
     $scope.playList = PlayList.all();
     var media = null;
@@ -35,12 +35,17 @@ angular.module('app.controllers', [])
                 pause($rootScope.activeAudioId);
                 media.release();
             }
-            console.log("1");
-            media = new Media(PlayList.get(audio_id).URL, null, null, mediaStatusCallback);
-            console.log("2");
+            //media = new Media(PlayList.get(audio_id).URL, null, null, mediaStatusCallback);
+            var src = PlayList.get(audio_id).URL;
+            media = $cordovaMedia.newMedia(src);
             $rootScope.activeAudioId = audio_id;
             play(audio_id);
         }
+    }
+
+    var iOSPlayOptions = {
+        numberOfLoops: 1,
+        playAudioWhenScreenIsLocked: true
     }
     var mediaStatusCallback = function (status) {
         if (status == 1) {
