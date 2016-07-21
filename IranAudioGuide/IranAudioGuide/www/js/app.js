@@ -20,7 +20,7 @@ angular.module('app', ['ionic', 'ionic.service.core', 'app.controllers', 'app.ro
         $rootScope.audio = {};
         $rootScope.audio.media = null;
 
-        window.localStorage.clear();
+        dbServices.openDB();
         var LstUpdtNum = window.localStorage.getItem("LastUpdateNumber");
         if (LstUpdtNum) {
             navigator.splashscreen.hide();

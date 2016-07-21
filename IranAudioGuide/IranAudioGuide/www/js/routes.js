@@ -4,9 +4,6 @@ angular.module('app.routes', [])
 
   // Each state's controller can be found in controllers.js
   $stateProvider
-    
-  
-
       .state('tabsController.home', {
     url: '/page2',
     views: {
@@ -51,6 +48,18 @@ angular.module('app.routes', [])
         controller: 'palaceCtrl'
       }
     }
+  })
+  .state('tabsController.palaceSearched', {
+      url: '/palaceSearched',
+      params: {
+          id: 'salam'
+      },
+      views: {
+          'tab3': {
+              templateUrl: 'templates/palace.html',
+              controller: 'palaceCtrl'
+          }
+      }
   })
 
 $urlRouterProvider.otherwise('/page1/page2')

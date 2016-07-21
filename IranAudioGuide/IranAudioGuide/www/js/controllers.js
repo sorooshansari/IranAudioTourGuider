@@ -1,34 +1,31 @@
 angular.module('app.controllers', [])
 
-.controller('homeCtrl', function ($scope, SlideShows, Places, $cordovaSQLite, $cordovaFile) {
+.controller('homeCtrl', function ($scope, SlideShows, Places, $cordovaFile) {
     $scope.PageTitle = 'Iranian Audio Guide'
     $scope.SlideShows = SlideShows.all();
     $scope.Places = Places.all();
-    document.addEventListener('deviceready', function () {
-        $scope.urlForImage = cordova.file.dataDirectory + "/TumbNameil_dir/testImage.png";
-    });
 
-    $scope.insert = function (firstname, lastname) {
-        var query = "INSERT INTO people (firstname, lastname) VALUES (?,?)";
-        $cordovaSQLite.execute(db, query, [firstname, lastname]).then(function (result) {
-            console.log("INSERT ID -> " + result.insertId);
-        }, function (error) {
-            console.error(error);
-        });
-    };
+    //$scope.insert = function (firstname, lastname) {
+    //    var query = "INSERT INTO people (firstname, lastname) VALUES (?,?)";
+    //    $cordovaSQLite.execute(db, query, [firstname, lastname]).then(function (result) {
+    //        console.log("INSERT ID -> " + result.insertId);
+    //    }, function (error) {
+    //        console.error(error);
+    //    });
+    //};
 
-    $scope.select = function (lastname) {
-        var query = "SELECT firstname, lastname FROM people WHERE lastname = ?";
-        $cordovaSQLite.execute(db, query, [lastname]).then(function (result) {
-            if (result.rows.length > 0) {
-                console.log("SELECTED -> " + result.rows.item(0).firstname + " " + result.rows.item(0).lastname);
-            } else {
-                console.log("NO ROWS EXIST");
-            }
-        }, function (error) {
-            console.error(error);
-        });
-    };
+    //$scope.select = function (lastname) {
+    //    var query = "SELECT firstname, lastname FROM people WHERE lastname = ?";
+    //    $cordovaSQLite.execute(db, query, [lastname]).then(function (result) {
+    //        if (result.rows.length > 0) {
+    //            console.log("SELECTED -> " + result.rows.item(0).firstname + " " + result.rows.item(0).lastname);
+    //        } else {
+    //            console.log("NO ROWS EXIST");
+    //        }
+    //    }, function (error) {
+    //        console.error(error);
+    //    });
+    //};
 })
 .controller('favoritsCtrl', function ($scope, Places) {
     $scope.PageTitle = "Favorits"
@@ -36,15 +33,52 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('searchCtrl', function ($scope) {
-    $scope.PageTitle = "Search"
-    $scope.Clear = function () {
-        $scope.search = '';
-    }
+.controller('searchCtrl', function ($scope, dbServices) {
+    document.addEventListener('deviceready', function () {
+        $scope.PageTitle = "Search"
+        $scope.Clear = function () {
+            $scope.search = '';
+        }
+        $scope.Cities = [];
+        var AllPlaces = [];
+        $scope.selectedPlaces = [];
+        dbServices.LoadAllCities();
+        $scope.$on('FillCities', function (event, result) {
+            var res = result.result.rows;
+            for (var i = 0; i < res.length; i++) {
+                $scope.Cities.push({
+                    Cit_Id: res.item(i).Cit_Id,
+                    Cit_Name: res.item(i).Cit_Name
+                });
+            }
+        });
+
+        dbServices.LoadAllPlaces();
+        $scope.$on('FillPlaces', function (event, result) {
+            var res = result.result.rows;
+            for (var i = 0; i < res.length; i++) {
+                AllPlaces.push({
+                    Id: res.item(i).Pla_Id,
+                    name: res.item(i).Pla_Name,
+                    logo: cordova.file.dataDirectory + "/TumbNameil_dir/" + res.item(i).Pla_TNImgUrl,
+                    address: res.item(i).Pla_address,
+                    city: res.item(i).Cit_Name,
+                    Pla_CityId: res.item(i).Pla_CityId
+                });
+                $scope.selectedPlaces = AllPlaces;
+                //angular.copy($scope.selectedPlaces, AllPlaces);
+            }
+            //angular.copy($scope.selectedPlaces, $scope.AllPlaces);
+        });
+        //$scope.urlForImage = cordova.file.dataDirectory + "/TumbNameil_dir/testImage.png";
+    });
 })
 
-.controller('palaceCtrl', function ($scope, AudioServices, $rootScope, $ionicLoading) {
+.controller('palaceCtrl', function ($scope, AudioServices, $rootScope, $ionicLoading, $stateParams) {
+    console.log($stateParams.id);
     $scope.PageTitle = "Tomb of Hafez"
+
+
     $scope.Audios = AudioServices.all();
     var playNewAudio = function (url) {
         var audioPath = "file:///android_asset/www/audio/" + url;

@@ -124,16 +124,19 @@ angular.module('app.services', [])
         }
     }
 }])
-.service('dbServices', ['$rootScope', '$cordovaSQLite', 'FileServices', function ($rootScope, $cordovaSQLite, FileServices) {
+.service('dbServices', ['$rootScope', '$cordovaSQLite', 'FileServices', function ($rootScope, $cordovaSQLite, FileServices) {   
     return {
-        initiate: function () {//if (isAndroid) {
+        openDB: function () {
+            db = $cordovaSQLite.openDB({ name: 'app.db', iosDatabaseLocation: 'default' });
+        },
+        initiate: function () {
+            //if (isAndroid) {
             //    // Works on android but not in iOS
             //    _sqlLiteDB = $cordovaSQLite.openDB({ name: "app.db", iosDatabaseLocation: 'default' });
             //} else {
             //    // Works on iOS 
             //    _sqlLiteDB = window.sqlitePlugin.openDatabase({ name: "app.db", location: 2, createFromLocation: 1 });
             //}
-            db = $cordovaSQLite.openDB({ name: 'app.db', iosDatabaseLocation: 'default' });
             $cordovaSQLite.execute(db,
                 "CREATE TABLE IF NOT EXISTS Places\
             (\
@@ -336,6 +339,36 @@ angular.module('app.services', [])
             }, function (error) {
                 console.error(error);
             });
+        },
+        LoadAllCities: function () {
+            var Cities = [];
+            var query = "\
+                SELECT\
+                    Cit_Id,\
+                    Cit_Name\
+                FROM Cities";
+            $cordovaSQLite.execute(db, query).then(function (result) {
+                $rootScope.$broadcast('FillCities', { result: result });
+            }, function (error) {
+                console.error(error);
+            });
+        },
+        LoadAllPlaces: function () {
+            var query = "\
+                SELECT\
+                    Pla_Id,\
+                    Pla_Name,\
+                    Pla_TNImgUrl,\
+                    Pla_address,\
+                    Cit_Name,\
+                    Pla_CityId\
+                FROM Places JOIN Cities\
+                ON Places.Pla_CityId = Cities.Cit_Id";
+            $cordovaSQLite.execute(db, query).then(function (result) {
+                $rootScope.$broadcast('FillPlaces', { result: result });
+            }, function (error) {
+                console.error(error);
+            });
         }
     }
 }])
@@ -373,24 +406,24 @@ angular.module('app.services', [])
               });
         },
         DownloadImage: function (fileName, placeId) {
-        var url = "http://iranaudioguide.com/images/Places/" + fileName;
-        var targetPath = cordova.file.dataDirectory + "/PlacePic_dir/" + fileName;
-        var trustHosts = true;
-        var options = {};
+            var url = "http://iranaudioguide.com/images/Places/" + fileName;
+            var targetPath = cordova.file.dataDirectory + "/PlacePic_dir/" + fileName;
+            var trustHosts = true;
+            var options = {};
 
-        $cordovaFileTransfer.download(url, targetPath, options, trustHosts)
-          .then(function (result) {
-              //dbServices.CleanPlaceImage(placeId);
-              // Success!
-          }, function (err) {
-              console.log(err);
-              // Error
-          }, function (progress) {
-              //$timeout(function () {
-              //    $scope.downloadProgress = (progress.loaded / progress.total) * 100;
-              //});
-          });
-    }
+            $cordovaFileTransfer.download(url, targetPath, options, trustHosts)
+              .then(function (result) {
+                  //dbServices.CleanPlaceImage(placeId);
+                  // Success!
+              }, function (err) {
+                  console.log(err);
+                  // Error
+              }, function (progress) {
+                  //$timeout(function () {
+                  //    $scope.downloadProgress = (progress.loaded / progress.total) * 100;
+                  //});
+              });
+        }
     }
 }]);
 
