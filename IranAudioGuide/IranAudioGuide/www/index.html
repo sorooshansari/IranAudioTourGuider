@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' http://api.iranaudioguide.com http://iranaudioguide.com data: 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
@@ -61,14 +62,14 @@
                     <div class="list">
 
                         <div class="item item-divider center item-stable">
-                            This is Song name
+                            Who was hafez
                         </div>
 
                         <div class="item player" href="#">
                             <div class="row">
-                                <div class="col col-offset-10"><i class="icon ion-skip-backward"></i></div>
+                                <div class="col col-offset-10"><i class="icon ion-ios-skipbackward"></i></div>
                                 <div class="col"><i class="icon ion-play"></i></div>
-                                <div class="col"><i class="icon ion-skip-forward"></i></div>
+                                <div class="col"><i class="icon ion-ios-skipforward"></i></div>
                                 <div class="col">10s<i class="icon ion-arrow-return-left"></i></div>
                             </div>
                             <div class="list">
@@ -85,29 +86,13 @@
 
                         <a href="#" class="item item-icon-left">
                             <i class="icon ion-play"></i>
-                            Enter home address
+                            Who was hafez
                         </a>
-
-                        <a href="#" class="item item-icon-left">
-                            <i class="icon ion-play"></i>
-                            Enter phone number
-                        </a>
-
-                        <a href="#" class="item item-icon-left">
-                            <i class="icon ion-play"></i>
-                            Enter wireless password
-                        </a>
-
-                        <a href="#" class="item item-icon-left">
-                            <i class="icon ion-play"></i>
-                            Enter card information
-                        </a>
-
                     </div>
                 </ion-content>
                 <ion-footer-bar class="bar-stable">
                     <div style="margin-left: auto;margin-right:auto;">
-                        <h5>Made with <i class="icon ion-ios-heart assertive"></i> on planet earth</h5>
+                        <h5 style="margin-left:auto; margin-right:auto">Made with <i class="icon ion-ios-heart assertive"></i> on planet earth</h5>
                     </div>
                 </ion-footer-bar>
             </ion-side-menu>

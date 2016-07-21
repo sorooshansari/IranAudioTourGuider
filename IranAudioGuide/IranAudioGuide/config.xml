@@ -8,7 +8,9 @@
       Your Name Here
     </author>
   <content src="index.html" />
-  <access origin="*" />
+  <!--<access origin="*" />-->
+  <access origin="cdvfile://*" />
+  <access origin="http://iranaudioguide.com/*" />
   <preference name="webviewbounce" value="false" />
   <preference name="UIWebViewBounce" value="false" />
   <preference name="DisallowOverscroll" value="true" />
@@ -75,4 +77,10 @@
   <plugin name="cordova-plugin-compat" version="1.0.0" />
   <plugin name="cordova-plugin-file" version="4.2.0" />
   <plugin name="cordova-plugin-media" version="2.1.0" src="https://git-wip-us.apache.org/repos/asf/cordova-plugin-media.git" />
+  <plugin name="cordova-plugin-splashscreen" version="3.1.0" />
+  <plugin name="cordova-plugin-network-information" version="1.2.1" />
+  <plugin name="cordova-sqlite-storage" version="1.4.6-pre2" src="https://github.com/litehelpers/Cordova-sqlite-storage.git" />
+  <plugin name="cordova-plugin-dialogs" version="1.2.1" />
+  <plugin name="cordova-plugin-file-transfer" version="1.5.2-dev" src="https://github.com/apache/cordova-plugin-file-transfer.git" />
+  <access origin="http://api.iranaudioguide.com/*" />
 </widget>

@@ -1,9 +1,19 @@
 <ion-view title="{{PageTitle}}" id="page4">
     <ion-content padding="true" class="has-header">
+
         <form class="list">
+            <label class="item item-select ic-selected" id="page-select1" data-componentid="select1">
+                <span class="input-label" aria-label="Select City" id="_label-2">Select City</span>
+                <select>
+                    <option value="Shiraz">Shiraz</option>
+                    <option value="Esfehan">Esfehan</option>
+                    <option value="Tehran">Tehran</option>
+                </select>
+            </label>
             <label class="item item-input">
                 <i class="icon ion-search placeholder-icon"></i>
-                <input type="search" placeholder="">
+                <input type="search" ng-model="search" placeholder="Place Name">
+                <i class="icon ion-android-close" ng-show="search.length" ng-click="Clear()"></i>
             </label>
             <!--<ion-item class="item-thumbnail-left" ui-sref="tabsController.palace">
                 <img src="img/CtTmSqiIQri2k7gMGImu_place.jpg">

@@ -11,10 +11,10 @@
         </div>
         <ion-list>
             <ion-item class="item-icon-left" 
-                      ng-repeat="audio in playList" 
+                      ng-repeat="audio in Audios" 
                       type="item-text-wrap"
-                      ng-click="playPause(audio.id)">
-                <i id="i-{{audio.id}}" class="icon ion-play"></i>
+                      ng-click="playPause(audio)">
+                <i class="icon ion-{{audio.icoStatus}}" ng-init="audio.icoStatus = 'play'"></i>
                 {{audio.title}}
             </ion-item>
         </ion-list>
